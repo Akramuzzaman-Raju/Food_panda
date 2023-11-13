@@ -14,4 +14,5 @@ export class Addons {
 
   @Column()
   addon_price: string; 
+  //rela
 }

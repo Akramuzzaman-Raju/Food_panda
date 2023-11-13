@@ -4,12 +4,12 @@ import { IssueService } from './issue.service';
 
   
 
-  @Controller('reviews')
+  @Controller('issues')
   export class IssueController {
     constructor(
       private issueService: IssueService,
-    ) {}
-    @Post('/review')
+    ) {} 
+    @Post('/issue')
     createReview(@Body() body: IssueDto) {
       this.issueService.create(
         body.issue,

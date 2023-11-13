@@ -25,5 +25,15 @@ export class FoodService {
     const food = this.foodRepository.create(data);
     return this.foodRepository.save(food);
   }
+  findOne(id: number) {
+    if (!id) {
+      return null;
+    }
+    return this.foodRepository.findOneBy({ id });
+  }
+  find(id: number) {
+    return this.foodRepository.findBy({ id });
+  }
+
 }
 

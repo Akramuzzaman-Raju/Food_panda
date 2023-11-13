@@ -1,5 +1,5 @@
 // profile.controller.ts
-import { Controller, Post, UseInterceptors, UploadedFiles, Body } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, UploadedFiles, Body, Get, Param } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { FoodService } from './food.service';
 
@@ -35,11 +35,15 @@ export class FoodController {
         food_image: files.food_image ? files.food_image[0].path : ''
         
       });
-
       return { message: 'Files and data uploaded successfully' };
     } catch (error) {
       console.error(error);
       return { message: 'Error uploading files and data' };
     }
+  }
+
+  @Get('/find')
+  findMeeting(@Param('id')id: number) {
+    return this.foodService.find(id);
   }
 }
