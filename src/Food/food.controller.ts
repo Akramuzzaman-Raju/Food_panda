@@ -1,13 +1,16 @@
 // profile.controller.ts
-import { Controller, Post, UseInterceptors, UploadedFiles, Body, Get, Param } from '@nestjs/common';
+import { Response } from 'express';
+
+import { Controller, Post, UseInterceptors, UploadedFiles, Body, Get, Param, Res, Delete } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import * as path from 'path';
 import { FoodService } from './food.service';
 
 @Controller('images')
 export class FoodController {
   constructor(private readonly foodService: FoodService) {}
 
-  @Post('upload/food')
+  @Post('/food')
   @UseInterceptors(FileFieldsInterceptor([
     { name: 'food_image', maxCount: 1 },
     // { name: 'restaurant_cover', maxCount: 1 },
@@ -42,8 +45,50 @@ export class FoodController {
     }
   }
 
+
+  // @Get('allimages')
+  // async serveAllImages(@Res() res: Response) {
+  //   try {
+  //     const allImages = await this.foodService.getAllImageFilenames();
+  //       for (const filename of allImages) {
+  //       const imagePath = path.join(process.cwd(), filename);  
+  //       res.sendFile(imagePath);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).json({ message: 'Error serving images' });
+  //   }
+  // }
+
+
+
   @Get('/find')
-  findMeeting(@Param('id')id: number) {
-    return this.foodService.find(id);
+  async findData(@Param('id') id: number, @Res() res: Response) {
+  try {
+    const foodData = await this.foodService.find(id);
+
+    if (!foodData || foodData.length === 0) {
+      return res.status(404).json({ message: 'Food not found' });
+    }
+
+    const responseData = foodData.map(food => ({
+      food_name: food.food_name,
+      food_details: food.food_details,
+      food_category: food.food_category,
+      food_price: food.food_price,
+      food_addon_category: food.food_addon_category,
+      cooking_time: food.cooking_time,
+      food_image: path.join('/',food.food_image),
+    }));
+
+    res.json(responseData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error retrieving food data' });
+  }
+}
+@Delete('/:id')
+  removeMeeting(@Param('id')  id: string) {
+    return this.foodService.remove(parseInt( id));
   }
 }

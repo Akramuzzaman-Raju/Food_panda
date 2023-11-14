@@ -19,12 +19,21 @@ export class FoodService {
     food_addon_category: string;
     food_image?: string;
     cooking_time: string;
-    // restaurant_logo?: string; // Make the field optional
-    // restaurant_cover?: string; // Make the field optional
   }): Promise<Food> {
     const food = this.foodRepository.create(data);
     return this.foodRepository.save(food);
   }
+
+  // async findOne(id: number): Promise<Food | undefined> {
+  //   if (!id) {
+  //     return undefined;
+  //   }
+  //   return this.foodRepository.findOne({ where: { id } });
+  // }
+
+  // async find(id: number): Promise<Food | undefined> {
+  //   return this.foodRepository.findOne({ where: { id } });
+  // }
   findOne(id: number) {
     if (!id) {
       return null;
@@ -34,6 +43,25 @@ export class FoodService {
   find(id: number) {
     return this.foodRepository.findBy({ id });
   }
+  async getAllImageDetails(): Promise<{  food_name: string, food_details: string, food_category: string, food_price: string, food_addon_category: string, cooking_time: string }[]> {
+    return this.foodRepository.find({
+      select: [ 'food_name', 'food_details', 'food_category', 'food_price', 'food_addon_category', 'cooking_time'],
+    });
+  }
+  async findAll(): Promise<Food[]> {
+    return this.foodRepository.find();
+  }
 
+  async remove(id: number) {
+    const food = await this.findOne(id);
+    if (!food) {
+      return ('food not found');
+    }
+    return this.foodRepository.remove(food);
+  }
+
+  async getAllImageFilenames(): Promise<string[]> {
+    const foods = await this.foodRepository.find();
+    return foods.map(food => food.food_image).filter(image => !!image);
+  }
 }
-
