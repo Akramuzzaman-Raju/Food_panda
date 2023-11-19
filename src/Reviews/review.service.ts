@@ -22,18 +22,18 @@ export class ReviewService {
     }
     return this.repo.findOneBy({ id });
   }
-  find(rating: string) {
-    return this.repo.findBy({ rating });
+  find(id: number) {
+    return this.repo.findBy({ id });
   }
 
-  async update(id: number, attrs: Partial<Review>) {
-    const reviews = await this.findOne(id);
-    if (!reviews) {
-      throw new NotFoundException('error');
-    }
-    Object.assign(reviews, attrs);
-    return this.repo.save(reviews);
-  }
+  // async update(id: number, attrs: Partial<Review>) {
+  //   const reviews = await this.findOne(id);
+  //   if (!reviews) {
+  //     throw new NotFoundException('error');
+  //   }
+  //   Object.assign(reviews, attrs);
+  //   return this.repo.save(reviews);
+  // }
 
 //   async remove(id: number) {
 //     const reviews = await this.findOne(id);

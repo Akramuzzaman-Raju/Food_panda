@@ -12,7 +12,7 @@ export class ConsultantController {
   constructor(private consultantService: ConsultantService) {}
 
   @Post('/consultant')
-  createConsultant(@Body() body: ConsultantDto) {
+  createConsultant(@Body() body: ConsultantDto) { 
     this.consultantService.create(
       body.name,
       body.phone,

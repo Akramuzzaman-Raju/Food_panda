@@ -21,7 +21,7 @@ import { ReviewService } from './review.service';
     return this.reviewService.findOne(parseInt(id));
   }
   @Get('/find')
-  findMeeting(@Param('id')id: string) {
+  findMeeting(@Param('id')id: number) {
     return this.reviewService.find(id);
   }
 }
