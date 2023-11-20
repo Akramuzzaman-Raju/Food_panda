@@ -13,11 +13,10 @@ export class Profile {
   restaurant_details: string;
 
   @Column()
-  restaurant_logo: string; // Store the path or filename of the profile photo
+  restaurant_logo: string; 
 
   @Column()
-  restaurant_cover: string; // Store the path or filename of the cover photo
-
+  restaurant_cover: string; 
   @Column()
   restaurant_cookingtime: string;
 }

@@ -21,4 +21,21 @@ export class ProfileService {
     const profile = this.profileRepository.create(data);
     return this.profileRepository.save(profile);
   }
+
+  findOne(id: number) {
+    if (!id) {
+      return null;
+    }
+    return this.profileRepository.findOneBy({ id });
+  }
+  find(id: number) {
+    return this.profileRepository.findBy({ id });
+  }
+  async remove(id: number) {
+    const food = await this.findOne(id);
+    if (!food) {
+      return ('not found');
+    }
+    return this.profileRepository.remove(food);
+  }
 }

@@ -1,13 +1,13 @@
 // profile.controller.ts
-import { Controller, Post, UseInterceptors, UploadedFiles, Body } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, UploadedFiles, Body, Delete, Param, Get } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ProfileService } from './profile.service';
 
-@Controller('images')
+@Controller('profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
-  @Post('upload/images')
+  @Post('upload')
   @UseInterceptors(FileFieldsInterceptor([
     { name: 'restaurant_logo', maxCount: 1 },
     { name: 'restaurant_cover', maxCount: 1 },
@@ -35,5 +35,16 @@ export class ProfileController {
       console.error(error);
       return { message: 'Error uploading files and data' };
     }
+  }
+
+  @Get('/find')
+  findMeeting(@Param('id')id: number) {
+    return this.profileService.find(id);
+  }
+
+
+  @Delete('/:id')
+  removeMeeting(@Param('id')  id: string) {
+    return this.profileService.remove(parseInt( id));
   }
 }

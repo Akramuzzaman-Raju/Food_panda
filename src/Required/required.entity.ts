@@ -1,18 +1,14 @@
-// image.entity.ts
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Addons {
+export class RequiredItems {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  addon_name: string;
-
   @Column()
   addon_category: string;
-
   @Column()
-  addon_price: string; 
-  //rela
+  size: string;
+  @Column()
+  price: number;
+  
 }

@@ -1,4 +1,4 @@
-// image.entity.ts
+// order.entity.ts
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -6,41 +6,42 @@ export class Order {
   @PrimaryGeneratedColumn()
   order_id: number;
 
-  @Column()
-  order_time
-: string;
+  @Column({ nullable: true, default: '' })
+  order_time: string;
 
-  @Column()
-  order_table
-: string;
+  @Column({ nullable: true, default: '' })
+  order_table: string;
 
-  @Column()
-  order_item: string; 
+  @Column({ nullable: true, default: '' })
+  order_item: string;
 
-  @Column()
+  @Column({ nullable: true, default: '' })
   order_addon: string;
 
-  @Column()
+  @Column({ nullable: true, default: '' })
+  order_requried_item: string;
+
+  @Column({ nullable: true, default: '' })
   order_quantity: string;
 
-  @Column()
-  order_total_price: string; 
+  @Column({ nullable: true, default: '' })
+  order_total_price: string;
 
-  @Column()
+  @Column({ nullable: true, default: '' })
   order_type: string;
 
-  @Column()
+  @Column({ nullable: true, default: '' })
   payment_option: string;
 
-  @Column()
-  payment_status: string; 
+  @Column({ nullable: true, default: '' })
+  payment_status: string;
 
-  @Column()
-  order_status: string; 
+  @Column({ nullable: true, default: '' })
+  order_status: string;
 
-  @Column()
-  order_issue: string; 
+  @Column({ nullable: true, default: '' })
+  order_issue: string;
 
-  @Column()
-  total_cooking_time: string; 
+  @Column({ nullable: true, default: '' })
+  total_cooking_time: string;
 }
